@@ -26,8 +26,8 @@ It's simple and enables fast development using the OpenAPI spec as the source of
   - [x] Task queue
   - [x] Task processing
 - [x] Integration tests
-  - [x] Signin, signup
-  - [ ] Task creation and processing
+  - [x] Signin, signup, task creation
+  - [ ] Task processing
   - [x] Separate db per test
   - [x] Fixtures
 - [ ] Metrics and observability
@@ -47,8 +47,7 @@ Start the dependencies
 make start-deps
 ```
 
-After starting the dependencies, run the app CMDs using your IDE for easiest debugging experience.
-You can also use the command line:
+Run the CMDs locally using your IDE for the best development and debug experience. But, you can also use:
 
 ```sh
 make run-api
@@ -58,7 +57,9 @@ make run-api
 make run-worker
 ```
 
-Signup request example:
+### Request examples
+
+Signup:
 ```sh
 curl --location 'http://localhost:8080/v1/signup' \
 --header 'Content-Type: application/json' \
@@ -69,7 +70,7 @@ curl --location 'http://localhost:8080/v1/signup' \
 }'
 ```
 
-After signing up, you can sign in:
+SignIn:
 ```sh
 curl --location 'http://localhost:8080/v1/signin' \
 --header 'Content-Type: application/json' \
@@ -80,10 +81,9 @@ curl --location 'http://localhost:8080/v1/signin' \
 }'
 ```
 
-Open [openapi spec](./api.yaml) in https://editor.swagger.io to see the API docs.
+Open [api spec](./api.yaml) in https://editor.swagger.io to see the API docs.
 
 ## Running tests
-You can run the tests using the command line:
 
 ```sh
 make test

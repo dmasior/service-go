@@ -67,7 +67,7 @@ func (a *API) CreateTask(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	jsonresponder.JSON(w, http.StatusOK, resp)
+	jsonresponder.JSON(w, http.StatusCreated, resp)
 }
 
 // for now, it's the same as validateSignUp
