@@ -1,0 +1,236 @@
+openapi: 3.0.0
+x-stoplight:
+  id: 5z9saoz42yn0b
+info:
+  title: service-go
+  version: '0.1'
+  termsOfService: ''
+servers:
+  - url: 'http://localhost:8080'
+    description: ''
+paths:
+  /v1/signup:
+    parameters: []
+    post:
+      summary: Sign Up New User
+      tags: []
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '409':
+          description: Conflict
+      operationId: signUp
+      x-stoplight:
+        id: pntw1rz9fz1oo
+      description: ''
+      requestBody:
+        $ref: '#/components/requestBodies/SignUpRequest'
+  /v1/signin:
+    post:
+      summary: Sign In User
+      tags: []
+      responses:
+        '200':
+          $ref: '#/components/responses/SingInResponse'
+        '400':
+          description: Bad Request
+      operationId: signIn
+      x-stoplight:
+        id: puxxgtqh4qgle
+      requestBody:
+        $ref: '#/components/requestBodies/SignInRequest'
+  /ready:
+    get:
+      summary: Ready
+      tags: []
+      responses:
+        '200':
+          description: OK
+      operationId: ready
+      x-stoplight:
+        id: 4sgy92axzxaw8
+    parameters: []
+  /v1/tasks:
+    post:
+      summary: Create Task
+      tags: []
+      responses:
+        '201':
+          $ref: '#/components/responses/TaskResponse'
+      operationId: createTask
+      x-stoplight:
+        id: hpb2yf478wpfe
+      requestBody:
+        $ref: '#/components/requestBodies/CreateTaskRequest'
+  '/v1/tasks/{id}':
+    get:
+      summary: Get task
+      tags: []
+      responses:
+        '200':
+          $ref: '#/components/responses/TaskResponse'
+        '404':
+          description: Not Found
+      operationId: getTask
+      x-stoplight:
+        id: t35t31frkag92
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+components:
+  schemas:
+    TaskModel:
+      title: TaskModel
+      x-stoplight:
+        id: hg969fe675dfa
+      type: object
+      required:
+        - id
+        - type
+        - payload
+        - status
+        - status_updated_at
+        - attempts
+        - created_at
+        - created_by
+      properties:
+        id:
+          type: string
+          x-stoplight:
+            id: d7jzkebnvkr9k
+        type:
+          type: string
+          x-stoplight:
+            id: y068yik10wmoh
+        payload:
+          type: string
+          x-stoplight:
+            id: 8z0ski8q9f32t
+          nullable: true
+        status:
+          type: string
+          x-stoplight:
+            id: v3gr9eakoc8w9
+        status_updated_at:
+          type: string
+          x-stoplight:
+            id: 4rp7k7jb6g0cx
+          format: date-time
+        attempts:
+          type: integer
+          x-stoplight:
+            id: grskbgs9jch70
+          format: int32
+        created_at:
+          type: string
+          x-stoplight:
+            id: b8i6c5vnkrifa
+          format: date-time
+        created_by:
+          type: string
+          x-stoplight:
+            id: cnl26gjeowtsd
+    TokenModel:
+      title: TokenModel
+      x-stoplight:
+        id: ggbxfcyeob6rk
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
+          x-stoplight:
+            id: mfwpf6924ooz4
+  requestBodies:
+    SignUpRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - email
+              - password
+              - captcha
+            properties:
+              email:
+                type: string
+                x-stoplight:
+                  id: c50dfrcyqwtih
+              password:
+                type: string
+                x-stoplight:
+                  id: gy05pr5qkzhm7
+              captcha:
+                type: string
+                x-stoplight:
+                  id: 3e646im222it3
+    SignInRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - email
+              - password
+              - captcha
+            properties:
+              email:
+                type: string
+                x-stoplight:
+                  id: 55ix7jzz8l7rs
+              password:
+                type: string
+                x-stoplight:
+                  id: m2d5xxmdn9mjv
+              captcha:
+                type: string
+                x-stoplight:
+                  id: 4lvskfwqatn0x
+    CreateTaskRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - type
+            properties:
+              type:
+                type: string
+                x-stoplight:
+                  id: qeknew3k85ttd
+                minLength: 1
+                maxLength: 64
+              payload:
+                type: string
+                x-stoplight:
+                  id: rgazt2gq8y6ii
+                maxLength: 1000
+  responses:
+    SingInResponse:
+      description: Sign In Response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: '#/components/schemas/TokenModel'
+    TaskResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - task
+            properties:
+              task:
+                $ref: '#/components/schemas/TaskModel'

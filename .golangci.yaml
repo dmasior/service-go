@@ -1,0 +1,86 @@
+run:
+  timeout: '3m'
+
+  build-tags:
+    - 'all'
+
+  modules-download-mode: 'readonly'
+
+  allow-parallel-runners: true
+
+linters:
+  enable:
+    - 'asciicheck'
+    - 'bodyclose'
+    - 'canonicalheader'
+    - 'containedctx'
+    - 'decorder'
+    - 'dogsled'
+    - 'errcheck'
+    - 'errorlint'
+    - 'gci'
+    - 'gofmt'
+    - 'gofumpt'
+    - 'goheader'
+    - 'goimports'
+    - 'gomodguard'
+    - 'goprintffuncname'
+    - 'gosec'
+    - 'gosimple'
+    - 'govet'
+    - 'ineffassign'
+    - 'makezero'
+    - 'misspell'
+    - 'noctx'
+    - 'paralleltest'
+    - 'prealloc'
+    - 'predeclared'
+    - 'revive'
+    - 'sqlclosecheck'
+    - 'staticcheck'
+    - 'stylecheck'
+    - 'typecheck'
+    - 'unconvert'
+    - 'unused'
+    - 'whitespace'
+linters-settings:
+  decorder:
+    dec-order:
+      - type
+      - const
+      - var
+      - func
+    ignore-underscore-vars: false
+    disable-dec-order-check: false
+    disable-init-func-first-check: false
+    disable-dec-num-check: false
+    disable-type-dec-num-check: false
+    disable-const-dec-num-check: false
+    disable-var-dec-num-check: false
+  gci:
+    sections:
+      - standard
+      - prefix(github.com/dmasior/service-go)
+      - default
+      - blank
+      - dot
+    skip-generated: true
+    custom-order: true
+
+issues:
+  exclude:
+    - '^S1023:'
+    - '^SA3000:'
+    - '^G102:'
+    - '^G402:'
+    - '^G505:'
+    - '^Range statement'
+    - '^var-declaration:'
+    - '^exported:'
+
+  max-issues-per-linter: 0
+
+  max-same-issues: 0
+
+severity:
+  default-severity: error
