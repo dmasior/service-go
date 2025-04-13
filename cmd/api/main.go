@@ -43,7 +43,7 @@ func run(ctx context.Context) error {
 	// Set GOMAXPROCS
 	slog.InfoContext(ctx, "run", slog.Int("GOMAXPROCS", runtime.GOMAXPROCS(0)))
 
-	// API Config
+	// API config
 	cfg := &struct {
 		Server    apiserver.Config
 		CORS      apiserver.CORSOptions
@@ -60,12 +60,12 @@ func run(ctx context.Context) error {
 	// Setup database
 	pool, err := database.NewPool(ctx, cfg.Database.DB, cfg.Database.User, cfg.Database.Password, cfg.Database.Host, cfg.Database.Port)
 	if err != nil {
-		return fmt.Errorf("initialize database pool: %w", err)
+		return fmt.Errorf("setup database: %w", err)
 	}
 
 	// Apply migrations
 	if err = database.Migrate(pool); err != nil {
-		return fmt.Errorf("apply migrations: %w", err)
+		return fmt.Errorf("database migrate: %w", err)
 	}
 
 	// Start server

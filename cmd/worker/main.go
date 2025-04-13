@@ -37,7 +37,7 @@ func run(ctx context.Context) error {
 	// GOMAXPROCS
 	slog.InfoContext(ctx, "startup", slog.Int("GOMAXPROCS", runtime.GOMAXPROCS(0)))
 
-	// Configuration
+	// Worker config
 	cfg := &struct {
 		Worker   worker.Config
 		Database database.Config
@@ -46,17 +46,17 @@ func run(ctx context.Context) error {
 		return fmt.Errorf("parse env: %w", err)
 	}
 
-	// Database
+	// Setup database
 	pool, err := database.NewPool(ctx, cfg.Database.DB, cfg.Database.User, cfg.Database.Password, cfg.Database.Host, cfg.Database.Port)
 	if err != nil {
-		return fmt.Errorf("initialize database pool: %w", err)
+		return fmt.Errorf("setup database: %w", err)
 	}
 
 	if err = database.Migrate(pool); err != nil {
-		return fmt.Errorf("migrate database: %w", err)
+		return fmt.Errorf("database migrate: %w", err)
 	}
 
-	// Worker
+	// Start worker
 	w := worker.New(
 		cfg.Worker,
 		worker.WithDBPool(pool),
@@ -71,7 +71,7 @@ func run(ctx context.Context) error {
 			id := fmt.Sprintf("W%d", i)
 
 			if err = w.Run(ctx, id); err != nil {
-				slog.ErrorContext(ctx, "worker error", slog.Any("err", err))
+				slog.ErrorContext(ctx, err.Error())
 			}
 		}()
 	}

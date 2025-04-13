@@ -1,11 +1,12 @@
 # Service-Go
 
-This is an example Go service boilerplate. It's a web server and a worker processing background tasks. It's not based on a framework, but a few production-ready and easy replaceable libraries.
+This is a Go web service starter-kit consisting of an HTTP server and a worker processing background tasks.
+It's not based on a framework but a few easy replaceable libraries.
 
-It's simple and enables fast development using the OpenAPI spec as the source of truth. Typical development flow:
-1. Write the api spec
-2. Run `make generate` to generate the server (and database) code
-3. Implement the handlers
+Service-Go promotes an API-first development approach using the OpenAPI specification as the source of truth. Development workflow:
+1. Update the API spec
+2. Run `make generate` to generate server stubs
+3. Implement business logic in the generated handlers, and write tests
 
 ## Features
 
@@ -17,14 +18,11 @@ It's simple and enables fast development using the OpenAPI spec as the source of
   - [x] Server auth middleware
 - [x] Background worker with simple task queue
 - [x] Database setup
-  - [x] Postgresql, but can be easily changed to MySQL or SQLite thanks to [sqlc](https://docs.sqlc.dev/en/stable/index.html)
+  - [x] PostgreSQL with [sqlc](https://docs.sqlc.dev/en/stable/index.html) for type-safe SQL. Can be replaced with SQLite, MySQL
   - [x] Migrations
 - [x] Example user signup and signin flow
-  - [x] Password hashing
-  - [x] JWT-based auth
-- [x] Example worker task creation and processing
-  - [x] Task queue
-  - [x] Task processing
+  - [x] Password hashing, JWT-based auth
+- [x] Worker task creation via API and background processing
 - [x] Integration tests
   - [x] Signin, signup, task creation
   - [ ] Task processing
